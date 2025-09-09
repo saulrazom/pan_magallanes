@@ -20,6 +20,15 @@
          url(/americana_std.otf) format('truetype');
 }
 
+/* Agregar temporalmente en tu CSS global solo para Firefox */
+@-moz-document url-prefix() {
+    .hero-container {
+      height: 85vh !important;
+      max-height: 85vh !important;
+      min-height: 85vh !important;
+    }
+  }
+
 * {
     font-family: 'Americana Std', ui-sans-serif, system-ui, sans-serif;
 }
