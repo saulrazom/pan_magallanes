@@ -29,13 +29,13 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
+  <header class="fixed h-[8%] top-0 left-0 right-0 z-50 transition-all duration-300"
           :class="{
             'backdrop-blur-md bg-white/80 shadow-lg': isScrolled,
             'bg-transparent': !isScrolled
           }">
     <nav class="flex justify-between items-center w-[90%] mx-auto relative">
-      <img :src="logoUrl" alt="Logo" class="w-42 h-auto">    
+      <img :src="logoUrl" alt="Logo" class="w-36 h-auto">    
       
       <!-- Desktop Menu -->
       <div v-if="!isMobile" class="desktop-menu">
