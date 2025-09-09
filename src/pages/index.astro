@@ -1,10 +1,16 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import MainFooter from '../components/MainFooter.vue';
-import MainHeader from '../components/MainHeader.vue';
+import MainHeader from '../components/layout/MainHeader.vue';
+import MainFooter from '../components/layout/MainFooter.vue';
+import HeroSection from '../components/pages/Home/HeroSection.vue';
+import GallerySection from '../components/pages/Home/GallerySection.vue';
+import FQSection from '../components/pages/Home/FQSection.vue';
 ---
 
 <Layout>
 	<MainHeader client:load />
-	<MainFooter />
+	<HeroSection client:load/>
+	<GallerySection client:load/>
+	<FQSection client:load/>
+	<MainFooter client:load/>
 </Layout>

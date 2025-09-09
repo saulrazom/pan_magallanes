@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import logoUrl from '@/assets/bmagallanes_logo.png?url';
 import { useMobileDetection } from '@/composables/useMobileDetection';
-import { ref } from 'vue';
+import { ref, onMounted, onUnmounted } from 'vue';
 
 const { isMobile } = useMobileDetection(768);
 const isMenuOpen = ref(false);
+const isScrolled = ref(false);
 
 const toggleMenu = () => {
   isMenuOpen.value = !isMenuOpen.value;
@@ -13,19 +14,35 @@ const toggleMenu = () => {
 const closeMenu = () => {
   isMenuOpen.value = false;
 };
+
+const handleScroll = () => {
+  isScrolled.value = window.scrollY > 50;
+};
+
+onMounted(() => {
+  window.addEventListener('scroll', handleScroll);
+});
+
+onUnmounted(() => {
+  window.removeEventListener('scroll', handleScroll);
+});
 </script>
 
 <template>
-  <header>
-    <nav class="flex justify-between items-center p-4 relative">
-      <img :src="logoUrl" alt="Logo" class="w-48 h-auto">    
+  <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
+          :class="{
+            'backdrop-blur-md bg-white/80 shadow-lg': isScrolled,
+            'bg-transparent': !isScrolled
+          }">
+    <nav class="flex justify-between items-center w-[90%] mx-auto relative">
+      <img :src="logoUrl" alt="Logo" class="w-42 h-auto">    
       
       <!-- Desktop Menu -->
       <div v-if="!isMobile" class="desktop-menu">
-        <ul class="flex list-none m-0 p-0 gap-8">
-          <li><a href="#" class="no-underline text-inherit font-medium">Nosotros</a></li>
-          <li><a href="#" class="no-underline text-inherit font-medium">Catálogo</a></li>
-          <li><a href="#" class="no-underline text-inherit font-medium">Contáctanos</a></li>
+        <ul class="flex list-none m-0 gap-8 text-2xl ">
+          <li><a href="#" class="text-black hover:text-gray-600 transition-colors duration-200">Nosotros</a></li>
+          <li><a href="#" class="text-black hover:text-gray-600 transition-colors duration-200">Catálogo</a></li>
+          <li><a href="#" class="text-black hover:text-gray-600 transition-colors duration-200">Contáctanos</a></li>
         </ul>
       </div>
 
