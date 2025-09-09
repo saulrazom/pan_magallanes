@@ -6,7 +6,7 @@ const { isMobile } = useMobileDetection(768);
 </script>
 
 <template>
-    <section class="h-screen flex items-end justify-center py-20">
+    <section class="h-screen flex items-center justify-center pt-20">
         <div 
             class="w-[90%] h-[93%] bg-cover bg-center bg-no-repeat rounded-3xl relative flex flex-col  items-start p-8 md:p-12 lg:p-16"
             :class="isMobile ? 'flex justify-end' : 'flex justify-center'"
