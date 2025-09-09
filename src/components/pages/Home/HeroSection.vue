@@ -8,7 +8,7 @@ const { isMobile } = useMobileDetection(768);
 <template>
     <section class="h-screen flex items-end justify-center py-20">
         <div 
-            class="w-[90%] h-[93%] bg-cover bg-center bg-no-repeat rounded-3xl relative flex flex-col  items-start p-8 md:p-12 lg:p-16"
+            class="w-[90%] h-[85%] bg-cover bg-center bg-no-repeat rounded-3xl relative flex flex-col  items-start p-8 md:p-12 lg:p-16"
             :class="isMobile ? 'flex justify-end' : 'flex justify-center'"
             :style="{ backgroundImage: `url(${HeroImage})` }"
         >
