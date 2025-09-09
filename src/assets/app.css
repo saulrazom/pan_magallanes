@@ -21,13 +21,13 @@
 }
 
 /* Agregar temporalmente en tu CSS global solo para Firefox */
+/* Solo para Firefox */
 @-moz-document url-prefix() {
-    .hero-container {
-      height: 85vh !important;
-      max-height: 85vh !important;
-      min-height: 85vh !important;
+    .hero-section {
+        position: sticky;
+        top: 0;
     }
-  }
+}
 
 * {
     font-family: 'Americana Std', ui-sans-serif, system-ui, sans-serif;
