@@ -2,7 +2,6 @@
 @plugin "daisyui";
 
 @theme {
-  
     --color-cream: #FFFCEF;
     --color-dark: #2B2C28;
     --color-ligth-blue: #A3D6FF;
@@ -18,15 +17,6 @@
     font-display: swap;
     src: url(/americana_std.otf) format('opentype'),
          url(/americana_std.otf) format('truetype');
-}
-
-/* Agregar temporalmente en tu CSS global solo para Firefox */
-/* Solo para Firefox */
-@-moz-document url-prefix() {
-    .hero-section {
-        position: sticky;
-        top: 0;
-    }
 }
 
 * {

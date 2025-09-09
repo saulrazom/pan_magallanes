@@ -29,20 +29,26 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
-          :class="{
-            'backdrop-blur-md bg-white/80 shadow-lg': isScrolled,
+  <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300" :class="{
+            'backdrop-blur-md bg-cream/80 shadow-lg': isScrolled,
             'bg-transparent': !isScrolled
           }">
     <nav class="flex justify-between items-center w-[90%] mx-auto relative">
-      <img :src="logoUrl" alt="Logo" class="w-36 h-auto">    
-      
+      <img :src="logoUrl" alt="Logo" class="w-36 h-auto">
+
       <!-- Desktop Menu -->
       <div v-if="!isMobile" class="desktop-menu">
-        <ul class="flex list-none m-0 gap-8 text-2xl ">
+        <ul class="flex list-none m-0 gap-8 text-xl ">
           <li><a href="#" class="text-black hover:text-gray-600 transition-colors duration-200">Nosotros</a></li>
           <li><a href="#" class="text-black hover:text-gray-600 transition-colors duration-200">Catálogo</a></li>
           <li><a href="#" class="text-black hover:text-gray-600 transition-colors duration-200">Contáctanos</a></li>
+          <div class="dropdown dropdown-bottom dropdown-end">
+            <div tabindex="0" >Más</div>
+            <ul tabindex="0" class="dropdown-content menu bg-cream text-lg rounded-box z-1 w-52 p-2 shadow-sm">
+              <li><a>Preguntas Frecuentes</a></li>
+              <li><a>Testimonios</a></li>
+            </ul>
+          </div>
         </ul>
       </div>
 
@@ -54,21 +60,29 @@ onUnmounted(() => {
       </button>
 
       <!-- Mobile Full Screen Menu -->
-      <div v-if="isMobile" 
-           class="fixed inset-0 w-screen h-screen bg-black/50 backdrop-blur-md z-[1000] transition-all duration-300 ease-in-out"
-           :class="{ 
+      <div v-if="isMobile"
+        class="fixed inset-0 w-screen h-screen bg-black/50 backdrop-blur-md z-[1000] transition-all duration-300 ease-in-out"
+        :class="{ 
              'opacity-100 visible': isMenuOpen, 
              'opacity-0 invisible': !isMenuOpen 
-           }" 
-           @click="closeMenu">
-        <div class="w-full h-full bg-gray-50/90 backdrop-blur-md flex items-center justify-center"
-             @click.stop>
+           }" @click="closeMenu">
+        <div class="w-full h-full bg-cream/80 backdrop-blur-md flex items-center justify-center" @click.stop>
           <ul class="list-none p-0 m-0 text-center">
-            <li class="my-8"><a href="#" @click="closeMenu" class="block no-underline text-4xl font-semibold text-gray-800 py-4 transition-colors duration-200 hover:text-blue-500">Nosotros</a></li>
-            <li class="my-8"><a href="#" @click="closeMenu" class="block no-underline text-4xl font-semibold text-gray-800 py-4 transition-colors duration-200 hover:text-blue-500">Catálogo</a></li>
-            <li class="my-8"><a href="#" @click="closeMenu" class="block no-underline text-4xl font-semibold text-gray-800 py-4 transition-colors duration-200 hover:text-blue-500">Contáctanos</a></li>
-            <li class="my-8"><a href="#" @click="closeMenu" class="block no-underline text-4xl font-semibold text-gray-800 py-4 transition-colors duration-200 hover:text-blue-500">Preguntas Frecuentes</a></li>
-            <li class="my-8"><a href="#" @click="closeMenu" class="block no-underline text-4xl font-semibold text-gray-800 py-4 transition-colors duration-200 hover:text-blue-500">Testimonios</a></li>
+            <li class="my-8"><a href="#" @click="closeMenu"
+                class="block no-underline text-4xl font-semibold text-gray-800 py-4 transition-colors duration-200 hover:text-blue-500">Nosotros</a>
+            </li>
+            <li class="my-8"><a href="#" @click="closeMenu"
+                class="block no-underline text-4xl font-semibold text-gray-800 py-4 transition-colors duration-200 hover:text-blue-500">Catálogo</a>
+            </li>
+            <li class="my-8"><a href="#" @click="closeMenu"
+                class="block no-underline text-4xl font-semibold text-gray-800 py-4 transition-colors duration-200 hover:text-blue-500">Contáctanos</a>
+            </li>
+            <li class="my-8"><a href="#" @click="closeMenu"
+                class="block no-underline text-4xl font-semibold text-gray-800 py-4 transition-colors duration-200 hover:text-blue-500">Preguntas
+                Frecuentes</a></li>
+            <li class="my-8"><a href="#" @click="closeMenu"
+                class="block no-underline text-4xl font-semibold text-gray-800 py-4 transition-colors duration-200 hover:text-blue-500">Testimonios</a>
+            </li>
           </ul>
         </div>
       </div>
