@@ -8,16 +8,10 @@ const { isMobile } = useMobileDetection(768);
 <template>
     <section class="h-svh flex items-end justify-center">
         <div 
-            class="w-[90%] mb-5 rounded-3xl relative flex flex-col items-start p-8 md:p-12 lg:p-16"
+            class="w-[90%] h-[85%] mb-5 bg-cover bg-center bg-no-repeat rounded-3xl relative flex flex-col items-start p-8 md:p-12 lg:p-16 overflow-hidden"
             :class="isMobile ? 'flex justify-end' : 'flex justify-center'"
-            style="height: calc(85vh - 1.25rem);"
+            :style="{ backgroundImage: `url(${HeroImage})`, backgroundAttachment: 'local' }"
         >
-            <!-- Imagen de fondo como elemento separado -->
-            <div 
-                class="absolute inset-0 bg-cover bg-center bg-no-repeat rounded-3xl"
-                :style="{ backgroundImage: `url(${HeroImage})` }"
-            ></div>
-            
             <!-- Overlay opcional para mejorar legibilidad -->
             <div class="absolute inset-0 bg-black/50 rounded-3xl"></div>
             
