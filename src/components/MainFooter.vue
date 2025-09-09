@@ -3,5 +3,5 @@
 </script>
 
 <template>
-  <h2>Footer</h2>
+  <h2 class="text-4xl">El mejor pan tradicional de Guadalajara</h2>
 </template>

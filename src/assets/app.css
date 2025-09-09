@@ -1,2 +1,59 @@
 @import "tailwindcss";
 @plugin "daisyui";
+
+@theme {
+    --color-*: initial;
+    --color-cream: #FFFCEF;
+    --color-dark: #2B2C28;
+    --color-ligth-blue: #A3D6FF;
+    --color-tahiti: #3ab7bf;
+    --color-bermuda: #78dcca;
+    --font-family-sans: "Americana Std", ui-sans-serif, system-ui, sans-serif;
+  }
+
+@font-face {
+    font-family: 'Americana Std';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url(/americana_std.otf) format('opentype'),
+         url(/americana_std.otf) format('truetype');
+}
+
+@keyframes appear {
+    from {
+        opacity: 0;
+        scale: 0.5;
+    }
+    to {
+        opacity: 1;
+        scale: 1;
+    }
+}
+@keyframes slide-up {
+    from {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+* {
+    font-family: 'Americana Std', ui-sans-serif, system-ui, sans-serif;
+}
+
+body {
+    background-color: theme("colors.cream");
+    color: theme("colors.dark");
+    font-family: 'Americana Std', ui-sans-serif, system-ui, sans-serif;
+    font-size: 1em;
+    line-height: 1.5;
+    margin: 0;
+
+    a {
+        transition: color 0.3s ease;
+    }
+}
