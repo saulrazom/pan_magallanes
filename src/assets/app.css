@@ -23,7 +23,8 @@
     font-family: 'Americana Std', ui-sans-serif, system-ui, sans-serif;
 }
 
-body {
+
+html, body {
     background-color: theme("colors.cream");
     color: theme("colors.dark");
     font-family: 'Americana Std', ui-sans-serif, system-ui, sans-serif;

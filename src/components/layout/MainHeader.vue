@@ -1,12 +1,18 @@
 <script setup lang="ts">
 import logoUrl from '@/assets/bmagallanes_logo.png?url';
 import { useMobileDetection } from '@/composables/useMobileDetection';
-import { ref, onMounted, onUnmounted } from 'vue';
+import { useScrollLock } from '@/composables/useScrollLock';
+import { ref, watch, onMounted, onUnmounted } from 'vue';
 
+// Composables
 const { isMobile } = useMobileDetection(768);
+const { lockScroll, unlockScroll } = useScrollLock();
+
+// State
 const isMenuOpen = ref(false);
 const isScrolled = ref(false);
 
+// Menu handlers
 const toggleMenu = () => {
   isMenuOpen.value = !isMenuOpen.value;
 };
@@ -15,73 +21,106 @@ const closeMenu = () => {
   isMenuOpen.value = false;
 };
 
+// Scroll detection
 const handleScroll = () => {
   isScrolled.value = window.scrollY > 50;
 };
 
+// Watch menu state for scroll lock
+watch(isMenuOpen, (isOpen) => {
+  if (isMobile.value) {
+    isOpen ? lockScroll() : unlockScroll();
+  }
+});
+
+// Lifecycle
 onMounted(() => {
   window.addEventListener('scroll', handleScroll);
 });
 
 onUnmounted(() => {
   window.removeEventListener('scroll', handleScroll);
+  if (isMenuOpen.value && isMobile.value) {
+    unlockScroll();
+  }
 });
+
+// Menu items configuration
+const mainMenuItems = [
+  { label: 'Nosotros', href: '#' },
+  { label: 'Catálogo', href: '#' },
+  { label: 'Contáctanos', href: '#' }
+];
+
+const dropdownItems = [
+  { label: 'Preguntas Frecuentes', href: '#' },
+  { label: 'Testimonios', href: '#' }
+];
+
+const mobileMenuItems = [
+  ...mainMenuItems,
+  ...dropdownItems
+];
 </script>
 
 <template>
-  <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300" :class="{
-            'backdrop-blur-md bg-cream/80 shadow-lg': isScrolled,
-            'bg-transparent': !isScrolled
-          }">
+  <header 
+    class="fixed top-0 left-0 right-0 z-50 transition-all duration-300" 
+    :class="isScrolled ? 'backdrop-blur-md bg-cream/80 shadow-lg' : 'bg-transparent'">
+    
     <nav class="flex justify-between items-center w-[90%] mx-auto relative">
+      <!-- Logo -->
       <img :src="logoUrl" alt="Logo" class="w-36 h-auto">
 
       <!-- Desktop Menu -->
       <div v-if="!isMobile" class="desktop-menu">
-        <ul class="flex list-none m-0 gap-8 text-xl ">
-          <li><a href="#" class="text-black hover:text-gray-600 transition-colors duration-200">Nosotros</a></li>
-          <li><a href="#" class="text-black hover:text-gray-600 transition-colors duration-200">Catálogo</a></li>
-          <li><a href="#" class="text-black hover:text-gray-600 transition-colors duration-200">Contáctanos</a></li>
+        <ul class="flex list-none m-0 gap-8 text-xl">
+          <li v-for="item in mainMenuItems" :key="item.label">
+            <a 
+              :href="item.href" 
+              class="text-black hover:text-gray-600 transition-colors duration-200">
+              {{ item.label }}
+            </a>
+          </li>
+          
+          <!-- Dropdown -->
           <div class="dropdown dropdown-bottom dropdown-end">
-            <div tabindex="0" >Más</div>
+            <div tabindex="0">Más</div>
             <ul tabindex="0" class="dropdown-content menu bg-cream text-lg rounded-box z-1 w-52 p-2 shadow-sm">
-              <li><a>Preguntas Frecuentes</a></li>
-              <li><a>Testimonios</a></li>
+              <li v-for="item in dropdownItems" :key="item.label">
+                <a :href="item.href">{{ item.label }}</a>
+              </li>
             </ul>
           </div>
         </ul>
       </div>
 
       <!-- Mobile Hamburger Button -->
-      <button v-if="isMobile" @click="toggleMenu" class="hamburger-btn" :class="{ active: isMenuOpen }">
+      <button 
+        v-if="isMobile" 
+        @click="toggleMenu" 
+        class="flex flex-col justify-around w-8 h-8 bg-transparent border-none cursor-pointer p-0 z-[1001]" 
+        :class="{ active: isMenuOpen }"
+        aria-label="Toggle menu">
         <span class="hamburger-line"></span>
         <span class="hamburger-line"></span>
         <span class="hamburger-line"></span>
       </button>
 
-      <!-- Mobile Full Screen Menu -->
-      <div v-if="isMobile"
-        class="fixed inset-0 w-screen h-screen bg-black/50 backdrop-blur-md z-[1000] transition-all duration-300 ease-in-out"
-        :class="{ 
-             'opacity-100 visible': isMenuOpen, 
-             'opacity-0 invisible': !isMenuOpen 
-           }" @click="closeMenu">
-        <div class="w-full h-full bg-cream/80 backdrop-blur-md flex items-center justify-center" @click.stop>
-          <ul class="list-none p-0 m-0 text-center">
-            <li class="my-8"><a href="#" @click="closeMenu"
-                class="block no-underline text-4xl font-semibold text-gray-800 py-4 transition-colors duration-200 hover:text-blue-500">Nosotros</a>
-            </li>
-            <li class="my-8"><a href="#" @click="closeMenu"
-                class="block no-underline text-4xl font-semibold text-gray-800 py-4 transition-colors duration-200 hover:text-blue-500">Catálogo</a>
-            </li>
-            <li class="my-8"><a href="#" @click="closeMenu"
-                class="block no-underline text-4xl font-semibold text-gray-800 py-4 transition-colors duration-200 hover:text-blue-500">Contáctanos</a>
-            </li>
-            <li class="my-8"><a href="#" @click="closeMenu"
-                class="block no-underline text-4xl font-semibold text-gray-800 py-4 transition-colors duration-200 hover:text-blue-500">Preguntas
-                Frecuentes</a></li>
-            <li class="my-8"><a href="#" @click="closeMenu"
-                class="block no-underline text-4xl font-semibold text-gray-800 py-4 transition-colors duration-200 hover:text-blue-500">Testimonios</a>
+      <!-- Mobile Menu -->
+      <div 
+        v-if="isMobile && isMenuOpen"
+        class="menu-overlay fixed inset-0 w-screen h-screen bg-black/50 backdrop-blur-md z-[1000]" 
+        @click="closeMenu">
+        <div class="menu-content w-full h-full bg-cream/80 backdrop-blur-md flex items-center justify-center overflow-y-auto" @click.stop>
+          <ul class="list-none p-0 m-0 text-center space-y-8 py-20">
+            <li v-for="item in mobileMenuItems" :key="item.label">
+              <a 
+                :href="item.href" 
+                @click="closeMenu"
+                class="block text-4xl font-semibold text-gray-800 py-4 transition-colors duration-200 hover:text-blue-500">
+                {{ item.label }}
+              </a>
             </li>
           </ul>
         </div>
@@ -91,60 +130,14 @@ onUnmounted(() => {
 </template>
 
 <style scoped>
-/* Desktop menu styles */
-.desktop-menu-list {
-  margin: 0;
-  padding: 0;
-}
-
-.desktop-menu-link {
-  text-decoration: none;
-  color: inherit;
-  font-weight: 500;
-}
-
-/* Mobile menu styles */
-.mobile-menu-list {
-  padding: 0;
-  margin: 0;
-}
-
-.mobile-menu-item {
-  margin: 2rem 0;
-}
-
-.mobile-menu-link {
-  text-decoration: none;
-  font-size: 2rem;
-  font-weight: 600;
-  color: #333;
-  display: block;
-  padding: 1rem 0;
-  transition: color 0.2s ease;
-}
-
-/* Hamburger Button - Custom CSS for complex animations */
-.hamburger-btn {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  width: 30px;
-  height: 30px;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  padding: 0;
-  z-index: 1001;
-}
-
 .hamburger-line {
-  width: 30px;
-  height: 3px;
-  background: #333;
-  border-radius: 10px;
+  width: 2rem;
+  height: 0.15rem;
+  background-color: #1f2937;
+  border-radius: 0.75rem;
   position: relative;
-  transition: all 0.3s linear;
-  transform-origin: 1px;
+  transition: all 0.3s ease;
+  transform-origin: left;
 }
 
 .hamburger-btn.active .hamburger-line:first-child {
@@ -158,5 +151,21 @@ onUnmounted(() => {
 
 .hamburger-btn.active .hamburger-line:nth-child(3) {
   transform: rotate(-45deg);
+}
+
+.menu-overlay {
+  animation: fadeIn 0.3s ease-in-out;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+.menu-content {
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 </style>

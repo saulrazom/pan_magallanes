@@ -1,11 +1,12 @@
 {
-    "contact_info": {
-        "email": "admin@panmagallanes.com",
-        "phone": "+523311483805",
-        "social_links": {
-            "facebook": "https://www.facebook.com/PanMagallanes",
-            "whatsapp": "https://wa.me/523311483805",
-            "instagram": "https://www.instagram.com/panaderia_magallanes/"
-        }
+    "email": "admin@panmagallanes.com",
+    "mobile": "+523311483805",
+    "mobileDisplay": "3311483805",
+    "phone": "+523338258471",
+    "phoneDisplay": "331338258471",
+    "social_links": {
+        "facebook": "https://www.facebook.com/PanMagallanes",
+        "whatsapp": "https://wa.me/523311483805",
+        "instagram": "https://www.instagram.com/panaderia_magallanes/"
     }
 }
