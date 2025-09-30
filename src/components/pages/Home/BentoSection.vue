@@ -20,7 +20,7 @@ import social_data from '@/assets/data/contact_data.json';
       </div>
       <div
         class="text-us bg-ligth-blue lg:w-1/3 w-full p-6 flex flex-col items-center justify-center rounded-3xl">
-        <h3 class="text-2xl lg:text-3xl mb-4">¡Mándanos un whats!</h3>
+        <h3 class="text-2xl lg:text-2xl mb-4">¡Mándanos un whats!</h3>
         <div>
           <a>
             <button
